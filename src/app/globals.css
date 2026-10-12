@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Paleta "Violeta noite" */
+:root {
+  --background: #faf8ff;
+  --foreground: #1b1033;
+  --primaria: #4c1d95;
+  --primaria-fg: #ffffff;
+  --destaque: #a78bfa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primaria: var(--primaria);
+  --color-primaria-fg: var(--primaria-fg);
+  --color-destaque: var(--destaque);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #120a24;
+    --foreground: #efeaff;
+    --primaria: #a78bfa;
+    --primaria-fg: #120a24;
+    --destaque: #7c3aed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
