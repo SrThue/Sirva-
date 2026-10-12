@@ -107,6 +107,21 @@ begin
   exception when insufficient_privilege then null; end;
 end $$;
 
+-- Storage: só dono/gerente, só na pasta da própria loja
+reset role; set role authenticated;
+select pg_temp.como('aaaaaaaa-0000-0000-0000-000000000001');
+insert into storage.buckets (id, name, public) values ('produtos', 'produtos', true) on conflict do nothing;
+do $$
+declare la uuid := (select id from public.lojas where slug = 'loja-a');
+        lb uuid := (select id from public.lojas where slug = 'loja-b');
+begin
+  insert into storage.objects (bucket_id, name) values ('produtos', la::text || '/a.webp');
+  begin
+    insert into storage.objects (bucket_id, name) values ('produtos', lb::text || '/b.webp');
+    raise exception 'A enviou arquivo para a pasta de B';
+  exception when others then if sqlerrm = 'A enviou arquivo para a pasta de B' then raise; end if; end;
+end $$;
+
 -- loja liberada: em teste, sim
 reset role;
 do $$

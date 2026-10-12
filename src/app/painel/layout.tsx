@@ -3,6 +3,7 @@ import { Suspense, type ReactNode } from "react";
 import { listarMinhasLojas, lojaAtiva } from "@/lib/loja-ativa";
 import { criarClienteServidor } from "@/lib/supabase/server";
 import { sair } from "../(auth)/acoes";
+import { NavPainel } from "@/components/nav-painel";
 import { trocarLoja } from "./acoes";
 
 async function Casca({ children }: { children: ReactNode }) {
@@ -53,7 +54,8 @@ async function Casca({ children }: { children: ReactNode }) {
           <button className="text-sm underline">Sair</button>
         </form>
       </header>
-      <div className="flex-1 p-4">{children}</div>
+      <NavPainel />
+      <div className="mx-auto w-full max-w-3xl flex-1 p-4">{children}</div>
     </div>
   );
 }
