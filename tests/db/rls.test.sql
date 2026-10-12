@@ -108,9 +108,10 @@ begin
 end $$;
 
 -- Storage: só dono/gerente, só na pasta da própria loja
-reset role; set role authenticated;
-select pg_temp.como('aaaaaaaa-0000-0000-0000-000000000001');
+reset role;
 insert into storage.buckets (id, name, public) values ('produtos', 'produtos', true) on conflict do nothing;
+set role authenticated;
+select pg_temp.como('aaaaaaaa-0000-0000-0000-000000000001');
 do $$
 declare la uuid := (select id from public.lojas where slug = 'loja-a');
         lb uuid := (select id from public.lojas where slug = 'loja-b');
